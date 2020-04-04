@@ -16,15 +16,15 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
-Route::post('login', 'ApiController@login');
-Route::post('register', 'ApiController@register');
+Route::post('login', 'APIController@login');
+Route::post('register', 'APIController@register');
 
 Route::group(['middleware' => 'auth.jwt'], function () {
-    Route::get('logout', 'ApiController@logout');
+    Route::get('logout', 'APIController@logout');
 
-    Route::get('transactions', 'TaskController@index');
-    Route::get('transactions/{id}', 'TaskController@show');
-    Route::post('transactions', 'TaskController@store');
-    Route::put('transactions/{id}', 'TaskController@update');
-    Route::delete('transactions/{id}', 'TaskController@destroy');
+    Route::get('transactions', 'TransactionController@index');
+    Route::get('transactions/{id}', 'TransactionController@show');
+    Route::post('transactions', 'TransactionController@store');
+    Route::put('transactions/{id}', 'TransactionController@update');
+    Route::delete('transactions/{id}', 'TransactionController@destroy');
 });

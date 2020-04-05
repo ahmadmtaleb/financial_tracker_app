@@ -15,16 +15,34 @@ class CreateTransactionsTable extends Migration
     {
         Schema::create('transactions', function (Blueprint $table) {
             $table->bigIncrements('id');
-
-            $table->unsignedBigInteger('user_id');
-            $table->string('title');
+            $table->string('title', 50);
             $table->text('description')->nullable();
+            $table->double('amount', 8, 2);
+            $table->unsignedBigInteger('category_id');
+            $table->date('start_date', 1);
+            $table->date('end_date', 1)->nullable();
+            $table->unsignedBigInteger('user_id');
+            $table->string('interval', 25);
+            $table->string('type', 25);
+            $table->unsignedBigInteger('currency_id');
+            $table->timestamps();
+
+            
             $table->foreign('user_id')
                     ->references('id')
                     ->on('users')
                     ->onDelete('cascade');
 
-            $table->timestamps();
+            $table->foreign('category_id')
+                    ->references('id')
+                    ->on('categories')
+                    ->onDelete('cascade');
+
+            $table->foreign('currency_id')
+                    ->references('id')
+                    ->on('currencies')
+                    ->onDelete('cascade');
+
         });
     }
 

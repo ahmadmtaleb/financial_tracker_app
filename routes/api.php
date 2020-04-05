@@ -27,4 +27,15 @@ Route::group(['middleware' => 'auth.jwt'], function () {
     Route::post('transactions', 'TransactionController@store');
     Route::put('transactions/{id}', 'TransactionController@update');
     Route::delete('transactions/{id}', 'TransactionController@destroy');
+
+
+    Route::get('currencies', 'CurrencyController@index');
+    Route::get('currencies/{id}', 'CurrencyController@show');
+    
+    Route::get('categories', 'CategoryController@index');
+    Route::get('categories/{id}', 'CategoryController@show');
+    Route::post('categories', 'CategoryController@store');
+    Route::put('categories/{id}', 'CategoryController@update');
+    Route::delete('categories/{id}', 'CategoryController@destroy');
+
 });

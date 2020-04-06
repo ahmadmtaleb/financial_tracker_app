@@ -25,7 +25,7 @@ class TransactionController extends Controller
      */
     public function index()
     {
-        $transactions = $this->user->transactions()->get(['title', 'description'/*, 'amount', 'start_date', 'end_date', 'interval', 'type'*/])->toArray();
+        $transactions = $this->user->transactions()->get(['title', 'description', 'amount', 'category_id', 'start_date', 'end_date', 'interval', 'type', 'currency_id'])->toArray();
 
         return $transactions;
     }
@@ -42,21 +42,25 @@ class TransactionController extends Controller
         $this->validate($request, [
              'title' => 'required',
              'description' => 'required',
-            //  'amount' => 'required',
-            //  'start_date' => 'required',
-            //  'end_date' => 'required',
-            //  'interval' => 'required', 
-            //  'type' => 'required'
+             'amount' => 'required',
+             'category_id' => 'required',
+             'start_date' => 'required',
+             'end_date' => 'required',
+             'interval' => 'required', 
+             'type' => 'required',
+             'currency_id' => 'required'
         ]);
  
         $transaction = new Transaction();
         $transaction->title = $request->title;
         $transaction->description = $request->description;
-        // $transaction->amount = $request->amount;
-        // $transaction->start_date = $request->start_date;
-        // $transaction->end_date = $request->end_date;
-        // $transaction->interval = $request->interval;
-        // $transaction->type = $request->type;
+        $transaction->amount = $request->amount;
+        $transaction->category_id = $request->category_id;
+        $transaction->start_date = $request->start_date;
+        $transaction->end_date = $request->end_date;
+        $transaction->interval = $request->interval;
+        $transaction->type = $request->type;
+        $transaction->currency_id = $request->currency_id;
 
         
         if ($this->user->transactions()->save($transaction))

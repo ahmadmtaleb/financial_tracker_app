@@ -27,7 +27,7 @@ class RegistrationFormRequest extends FormRequest
             'name' => 'required|string',
             'email' => 'required|email|unique:users',
             'password' => 'required|string|min:6|max:10',
-            // 'currency_id' => 'required|integer'
+            'currency_id' => 'required|integer'
         ];
     }
 }

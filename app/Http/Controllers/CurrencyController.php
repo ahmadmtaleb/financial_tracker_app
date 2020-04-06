@@ -29,6 +29,5 @@ class CurrencyController extends Controller
 
         return new CurrencyResource($currency);
     }
-
 }
 

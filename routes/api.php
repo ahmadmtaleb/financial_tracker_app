@@ -18,6 +18,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 Route::post('login', 'APIController@login');
 Route::post('register', 'APIController@register');
+
 Route::get('currencies', 'CurrencyController@index');
 Route::get('currencies/{id}', 'CurrencyController@show');
 

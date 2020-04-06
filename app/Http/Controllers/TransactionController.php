@@ -25,19 +25,9 @@ class TransactionController extends Controller
      */
     public function index()
     {
-        $transactions = $this->user->transactions()->get(['title', 'description'])->toArray();
+        $transactions = $this->user->transactions()->get(['title', 'description'/*, 'amount', 'start_date', 'end_date', 'interval', 'type'*/])->toArray();
 
         return $transactions;
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
     }
 
     /**
@@ -52,12 +42,23 @@ class TransactionController extends Controller
         $this->validate($request, [
              'title' => 'required',
              'description' => 'required',
+            //  'amount' => 'required',
+            //  'start_date' => 'required',
+            //  'end_date' => 'required',
+            //  'interval' => 'required', 
+            //  'type' => 'required'
         ]);
  
         $transaction = new Transaction();
         $transaction->title = $request->title;
         $transaction->description = $request->description;
- 
+        // $transaction->amount = $request->amount;
+        // $transaction->start_date = $request->start_date;
+        // $transaction->end_date = $request->end_date;
+        // $transaction->interval = $request->interval;
+        // $transaction->type = $request->type;
+
+        
         if ($this->user->transactions()->save($transaction))
             return response()->json([
                'success' => true,
@@ -69,6 +70,7 @@ class TransactionController extends Controller
                 'message' => 'Sorry, transaction could not be added.'
             ], 500);
     } 
+    
     /**
      * Display the specified resource.
      *
@@ -88,17 +90,6 @@ class TransactionController extends Controller
  
          return $transaction;
      }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Transaction  $transaction
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Transaction $transaction)
-    {
-        //
-    }
     
     /*** Update the specified resource in storage.
     * @param Request $request

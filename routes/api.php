@@ -18,6 +18,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 Route::post('login', 'APIController@login');
 Route::post('register', 'APIController@register');
+Route::get('currencies', 'CurrencyController@index');
+Route::get('currencies/{id}', 'CurrencyController@show');
 
 Route::group(['middleware' => 'auth.jwt'], function () {
     Route::get('logout', 'APIController@logout');
@@ -28,9 +30,6 @@ Route::group(['middleware' => 'auth.jwt'], function () {
     Route::put('transactions/{id}', 'TransactionController@update');
     Route::delete('transactions/{id}', 'TransactionController@destroy');
 
-
-    Route::get('currencies', 'CurrencyController@index');
-    Route::get('currencies/{id}', 'CurrencyController@show');
     
     Route::get('categories', 'CategoryController@index');
     Route::get('categories/{id}', 'CategoryController@show');

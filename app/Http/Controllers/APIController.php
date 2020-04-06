@@ -72,6 +72,7 @@ public function login(Request $request)
         $user = new User();
         $user->name = $request->name;
         $user->email = $request->email;
+        $user->currency_id = $request->currency_id;
         $user->password = bcrypt($request->password);
         $user->save();
 

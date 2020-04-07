@@ -19,11 +19,14 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::post('login', 'APIController@login');
 Route::post('register', 'APIController@register');
 
-Route::get('currencies', 'CurrencyController@index');
-Route::get('currencies/{id}', 'CurrencyController@show');
+Route::resource('currencies', 'CurrencyController');
+//Route::get('currencies', 'CurrencyController@index');
+//Route::get('currencies/{id}', 'CurrencyController@show');
 
 Route::group(['middleware' => 'auth.jwt'], function () {
     Route::get('logout', 'APIController@logout');
+
+    //Route::resource('transaction', 'TransactionController');
 
     Route::get('transactions', 'TransactionController@index');
     Route::get('transactions/{id}', 'TransactionController@show');

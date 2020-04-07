@@ -25,7 +25,10 @@ class TransactionController extends Controller
      */
     public function index()
     {
-        $transactions = $this->user->transactions()->get(['title', 'description', 'amount', 'category_id', 'start_date', 'end_date', 'interval', 'type', 'currency_id'])->toArray();
+        $transactions = $this->user
+                            ->transactions()
+                            ->get(['title', 'description', 'amount', 'category_id', 'start_date', 'end_date', 'interval', 'type', 'currency_id'])
+                            ->toArray();
 
         return $transactions;
     }

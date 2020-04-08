@@ -18,10 +18,13 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 Route::post('login', 'APIController@login');
 Route::post('register', 'APIController@register');
+Route::post('check-user', 'APIController@checkUser');
 
-Route::resource('currencies', 'CurrencyController');
-//Route::get('currencies', 'CurrencyController@index');
-//Route::get('currencies/{id}', 'CurrencyController@show');
+
+//Route::resource('currencies', 'CurrencyController');
+Route::get('currencies', 'CurrencyController@index');
+Route::get('currencies/{id}', 'CurrencyController@show');
+Route::get('currencies/find-by-code/{code}', 'CurrencyController@getCurrencyByCode');
 
 Route::group(['middleware' => 'auth.jwt'], function () {
     Route::get('logout', 'APIController@logout');
@@ -33,6 +36,7 @@ Route::group(['middleware' => 'auth.jwt'], function () {
     Route::post('transactions', 'TransactionController@store');
     Route::put('transactions/{id}', 'TransactionController@update');
     Route::delete('transactions/{id}', 'TransactionController@destroy');
+    Route::get('transactions/find-by-type/{type}', 'Transaction@getTransactionByType');
 
     
     Route::get('categories', 'CategoryController@index');

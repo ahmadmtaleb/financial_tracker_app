@@ -22,7 +22,7 @@ class CreateTransactionsTable extends Migration
             $table->date('start_date', 1);
             $table->date('end_date', 1)->nullable();
             $table->unsignedBigInteger('user_id');
-            $table->string('interval', 25);
+            $table->string('interval', 25)->nullable();
             $table->string('type', 25);
             $table->unsignedBigInteger('currency_id');
             $table->timestamps();

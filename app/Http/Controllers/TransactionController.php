@@ -30,7 +30,10 @@ class TransactionController extends Controller
                             ->get(['title', 'description', 'amount', 'category_id', 'start_date', 'end_date', 'interval', 'type', 'currency_id'])
                             ->toArray();
 
-        return $transactions;
+        return response()->json([
+            'success' => true,
+            'data' => $transactions
+        ]);
     }
 
     /**
@@ -48,8 +51,6 @@ class TransactionController extends Controller
              'amount' => 'required',
              'category_id' => 'required',
              'start_date' => 'required',
-             'end_date' => 'required',
-             'interval' => 'required', 
              'type' => 'required',
              'currency_id' => 'required'
         ]);
@@ -69,7 +70,7 @@ class TransactionController extends Controller
         if ($this->user->transactions()->save($transaction))
             return response()->json([
                'success' => true,
-                'transaction' => $transaction
+                'data' => $transaction
          ]);
         else
             return response()->json([

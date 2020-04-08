@@ -14,7 +14,11 @@ class CurrencyController extends Controller
     {
         $currencies = Currency::all();
 
-        return CurrencyResource::collection($currencies);
+        return response()->json([
+             'success' => true,
+             'data' => $currencies
+        ]);
+        //return CurrencyResource::collection($currencies);
     }
  
      /**
@@ -27,7 +31,19 @@ class CurrencyController extends Controller
     {
         $currency = Currency::findOrFail($id);
 
-        return new CurrencyResource($currency);
+        return response()->json([
+             'success' => true,
+             'data' => $currency
+        ]);
+        //return new CurrencyResource($currency);
+    }
+
+    public function getCurrencyByCode($code){
+        $currency = Currency::where('code', $code)->get();
+         return response()->json([
+             'success' => true,
+             'data' => $currency
+         ]);      
     }
 }
 

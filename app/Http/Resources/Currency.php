@@ -12,13 +12,13 @@ class Currency extends JsonResource
      * @param  \Illuminate\Http\Request  $request
      * @return array
      */
-    public function toArray($request)
+     public function toArray($request)
     {
-        return [
-            'id' => $this->id,
-            'symbol' => $this->symbol,
-            'name' => $this->name,
-            'code' => $this->code
-        ];
+        // return [
+        //     'id' => $this->id,
+        //     'symbol' => $this->symbol,
+        //     'name' => $this->name,
+        //     'code' => $this->code
+        // ];
     }
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use JWTAuth;
 use App\User;
+use App\Category;
 use Illuminate\Http\Request;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use App\Http\Requests\RegistrationFormRequest;
@@ -76,6 +77,15 @@ public function login(Request $request)
         $user->password = bcrypt($request->password);
         $user->save();
 
+        $defaultCategories = ['Family', 'Work', 'Health'];
+      
+        foreach($defaultCategories as $defaultCategory){
+            $category = new Category();
+            $category->name = $defaultCategory;
+
+            $user->categories()->save($category);
+        }
+
         if ($this->loginAfterSignUp) {
             return $this->login($request);
         }
@@ -84,5 +94,35 @@ public function login(Request $request)
             'success'   =>  true,
             'data'      =>  $user
         ], 200);
+    }
+
+    public function checkUser(Request $request){
+
+        $this->validate($request, [
+            'token' => 'required'
+        ]);
+        try {
+            $user = JWTAuth::parseToken()->authenticate();
+
+            if($user){
+                return response()->json([
+                    'success'=> true,
+                    'data' => $user,
+                ]);
+            }else {
+                return response()->json([
+                    'success'=> false,
+                    'message' => "Authentication error",
+                ]);
+            }
+    
+        }catch(Exception $error){
+            return response()->json([
+                'success'=> false,
+                'message' => "Authentication error",
+            ]);
+        }
+
+        
     }
 }

@@ -10,6 +10,8 @@ class Transaction extends Model
      * @var string
     */
     protected $table = 'transactions';
+    protected $fillable = ['title', 'description', 'amount', 'category_id', 'start_date', 'end_date', 'interval', 'type', 'currency_id'];
+
 
     /**
      * @var array

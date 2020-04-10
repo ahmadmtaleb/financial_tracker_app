@@ -36,7 +36,7 @@ Route::group(['middleware' => 'auth.jwt'], function () {
     Route::post('transactions', 'TransactionController@store');
     Route::put('transactions/{id}', 'TransactionController@update');
     Route::delete('transactions/{id}', 'TransactionController@destroy');
-    Route::get('transactions/find-by-type/{type}', 'Transaction@getTransactionByType');
+   // Route::get('transactions/find-by-type/{type}', 'Transaction@getTransactionByType');
 
     
     Route::get('categories', 'CategoryController@index');

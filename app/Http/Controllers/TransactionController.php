@@ -157,4 +157,18 @@ class TransactionController extends Controller
             ], 500);
         }
     }
+    
+    public function getTransactionsByType($request)
+    {
+        $transactions = $this->user
+                                ->transactions()
+                                ->get(['title', 'description', 'amount', 'category_id', 'start_date', 'end_date', 'interval', 'type', 'currency_id'])
+                                ->where('type', $request)
+                                ->toArray();
+
+        return response()->json([
+            'success' => true,
+            'data' => $transactions
+        ]);
+    }
 }

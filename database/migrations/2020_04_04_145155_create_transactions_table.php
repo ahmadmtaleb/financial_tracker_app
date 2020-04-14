@@ -19,8 +19,8 @@ class CreateTransactionsTable extends Migration
             $table->text('description')->nullable();
             $table->double('amount', 8, 2);
             $table->unsignedBigInteger('category_id');
-            $table->date('start_date', 1);
-            $table->date('end_date', 1)->nullable();
+            $table->string('start_date', 100);
+            $table->string('end_date', 100)->default('');
             $table->unsignedBigInteger('user_id');
             $table->string('interval', 25)->nullable();
             $table->string('type', 25);

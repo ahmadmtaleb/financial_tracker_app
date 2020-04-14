@@ -158,17 +158,33 @@ class TransactionController extends Controller
         }
     }
     
+    // public function getTransactionsByType($request)
+    // {
+    //     $transactions = $this->user
+    //                             ->transactions()
+    //                             ->where('type', $request)
+    //                             ->get(['title', 'description', 'amount', 'category_id', 'start_date', 'end_date', 'interval', 'type', 'currency_id'])
+    //                             ->toArray();
+    //     return response()->json([
+    //         'success' => true,
+    //         'data' => $transactions
+    //     ]);
+    // }
+
     public function getTransactionsByType($request)
     {
         $transactions = $this->user
                                 ->transactions()
-                                ->get(['title', 'description', 'amount', 'category_id', 'start_date', 'end_date', 'interval', 'type', 'currency_id'])
+                                ->join('currencies', 'currencies.id', '=', 'currency_id')
+                                ->join('categories', 'categories.id', '=', 'category_id')
                                 ->where('type', $request)
+                                ->select(['transactions.title', 'transactions.description', 'transactions.amount', 'categories.name', 'transactions.start_date', 'transactions.end_date', 'transactions.interval', 'transactions.type', 'currencies.code'])
+                                ->get()
                                 ->toArray();
-
         return response()->json([
             'success' => true,
             'data' => $transactions
         ]);
     }
+
 }
